@@ -33,7 +33,7 @@ input WorkflowTaskInput {
     definitionName: String
     description: String
     dueDate: String
-    id: Integer
+    id: Int
     logs: WorkflowLogInput
     name: String
     object: ObjectInput
@@ -48,7 +48,7 @@ type WorkflowTask {
     definitionName: String
     description: String
     dueDate: String
-    id: Integer
+    id: Int
     logs: WorkflowLog
     name: String
     object: Object
@@ -75,7 +75,7 @@ type Genericparentid {
 }
 
 type Query {
-	rolesByParentIdByWorkflowTasks:(page: Int, perPage: Int, parentId: String!): [WorkflowTask]
+	rolesByParentIdByWorkflowTasks(page: Int, perPage: Int, parentId: String!): [WorkflowTask]
 	workflowLogsById(id: !Int): WorkflowLog
 	workflowTasks (page: Int, perPage: Int, genericparentid: Genericparentid!): [WorkflowTask]
 	workflowTasksById (id: Int!): WorkflowTask
@@ -83,8 +83,8 @@ type Query {
 }
 
 type Mutation {
-	workflowTasksByIdByAssignToMe (id: Int!, requestBody: WorkflowTaskInput!): WorkflowTask
-	workflowTasksByIdByAssignToUser (id: Int!, requestBody: WorkflowTaskInput!): WorkflowTask
-	workflowTasksByIdByChangeTransition (id: Int!, requestBody: WorkflowTaskInput!): WorkflowTask
-	workflowTasksByIdByUpdateDueDate (id: Int!, requestBody: WorkflowTaskInput!): WorkflowTask
+	workflowTasksByIdByAssignToMe(id: Int!, requestBody: WorkflowTaskInput!): WorkflowTask
+	workflowTasksByIdByAssignToUser(id: Int!, requestBody: WorkflowTaskInput!): WorkflowTask
+	workflowTasksByIdByChangeTransition(id: Int!, requestBody: WorkflowTaskInput!): WorkflowTask
+	workflowTasksByIdByUpdateDueDate(id: Int!, requestBody: WorkflowTaskInput!): WorkflowTask
 }
