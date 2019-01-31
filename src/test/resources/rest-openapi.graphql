@@ -1,0 +1,90 @@
+input WorkflowLogInput {
+	auditPerson: String
+    commentLog: String
+    dateCreated: String
+    id: Int
+    person: String
+    previousPerson: String
+    previousState: String
+    self: String
+    state: String
+    task: WorkflowTaskInput
+    type: String
+}
+
+type WorkflowLog {
+	auditPerson: String
+    commentLog: String
+    dateCreated: String
+    id: Int
+    person: String
+    previousPerson: String
+    previousState: String
+    self: String
+    state: String
+    task: WorkflowTask
+    type: String
+}
+
+input WorkflowTaskInput {
+    completed: Boolean
+    dateCompleted: String
+    dateCreated: String
+    definitionName: String
+    description: String
+    dueDate: String
+    id: Integer
+    logs: WorkflowLogInput
+    name: String
+    object: ObjectInput
+    self: String
+    transitions: [String]
+}
+
+type WorkflowTask {
+    completed: Boolean
+    dateCompleted: String
+    dateCreated: String
+    definitionName: String
+    description: String
+    dueDate: String
+    id: Integer
+    logs: WorkflowLog
+    name: String
+    object: Object
+    self: String
+    transitions: [String]
+}
+
+input ObjectInput {
+	id: Int
+	identifier: String
+	resourceType: String
+	self: String
+}
+
+type Object {
+	id: Int
+	identifier: String
+	resourceType: String
+	self: String
+}
+
+type Genericparentid {
+	empty: String
+}
+
+type Query {
+	rolesByParentIdByWorkflowTasks:(page: Int, perPage: Int, parentId: String!): [WorkflowTask]
+	workflowLogsById(id: !Int): WorkflowLog
+	workflowTasks (page: Int, perPage: Int, genericparentid: Genericparentid!): [WorkflowTask]
+	workflowTasksById (id: Int!): WorkflowTask
+	workflowTasksByParentIdByWorkflowLogs:(page: Int, perPage: Int, parentId: String!): [WorkflowLog]
+}
+
+type Mutation {
+	workflowTasksByIdByAssignToMe (id: Int!, requestBody: WorkflowTaskInput!): WorkflowTask
+	workflowTasksByIdByAssignToUser (id: Int!, requestBody: WorkflowTaskInput!): WorkflowTask
+	workflowTasksByIdByChangeTransition (id: Int!, requestBody: WorkflowTaskInput!): WorkflowTask
+	workflowTasksByIdByUpdateDueDate (id: Int!, requestBody: WorkflowTaskInput!): WorkflowTask
+}
